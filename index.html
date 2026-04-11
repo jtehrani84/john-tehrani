@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Tehrani — Enterprise AI Strategist & Builder</title>
+  <meta name="description" content="Principal Strategic SE at Salesforce. Agentforce co-creator. AI platform builder. 20 years spanning energy engineering, startups, and Fortune 500 enterprise software.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            navy: { 950: '#0a1628', 900: '#132238', 800: '#1a2a42' },
+            accent: { 300: '#5ba8d4', 400: '#1b96ff', 500: '#0070d2', 600: '#005bb5' },
+            teal: { 400: '#00b4d8', 500: '#0096b7' },
+            gold: { 400: '#e8c76a', 500: '#d4a44c' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0a1628; color: #E2E8F0; overflow-x: hidden; }
+
+    /* Scroll progress bar */
+    .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #0070d2, #00b4d8, #d4a44c); z-index: 100; width: 0%; }
+
+    /* Subtle grid overlay */
+    .grid-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M60 0H0v60' fill='none' stroke='rgba(255,255,255,0.025)' stroke-width='1'/%3E%3C/svg%3E");
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    }
+
+    /* Floating ambient orbs */
+    .orb { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+    .orb-1 { width: 600px; height: 600px; background: rgba(0,112,210,0.08); top: -200px; right: -200px; animation: drift1 25s ease-in-out infinite; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(0,180,216,0.06); bottom: -150px; left: -150px; animation: drift2 30s ease-in-out infinite; }
+    .orb-3 { width: 400px; height: 400px; background: rgba(212,164,76,0.05); top: 50%; left: 40%; animation: drift3 22s ease-in-out infinite; }
+
+    @keyframes drift1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-80px, 60px); } }
+    @keyframes drift2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(60px, -80px); } }
+    @keyframes drift3 { 0%, 100% { transform: translate(0, 0); } 33% { transform: translate(40px, -40px); } 66% { transform: translate(-40px, 30px); } }
+
+    /* Scroll-triggered animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* Hero entrance animations */
+    .hero-fade { opacity: 0; transform: translateY(20px); animation: heroFadeIn 1s ease forwards; }
+    .hero-fade-1 { animation-delay: 0.2s; }
+    .hero-fade-2 { animation-delay: 0.4s; }
+    .hero-fade-3 { animation-delay: 0.6s; }
+    .hero-fade-4 { animation-delay: 0.8s; }
+    @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* Photo glow ring */
+    .photo-ring {
+      position: relative;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1b96ff, #00b4d8, #d4a44c);
+      padding: 4px;
+      box-shadow: 0 0 60px rgba(27,150,255,0.2), 0 0 120px rgba(0,180,216,0.08);
+    }
+    .photo-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a2a42, #0a1628);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-inner img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Feature cards */
+    .feature-card {
+      background: rgba(19, 34, 56, 0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: all 0.4s ease;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+    .feature-card:hover {
+      border-color: rgba(27,150,255,0.25);
+      box-shadow: 0 0 50px rgba(0,112,210,0.08);
+      transform: translateY(-4px);
+    }
+
+    /* Stat cards */
+    .stat-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-radius: 12px;
+      background: rgba(19, 34, 56, 0.4);
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      border-color: rgba(27,150,255,0.15);
+      background: rgba(19, 34, 56, 0.6);
+    }
+
+    /* Timeline */
+    .timeline-item { display: flex; gap: 2rem; margin-bottom: 3rem; }
+    .timeline-item:last-child, .timeline-item.timeline-last { margin-bottom: 0; }
+    .timeline-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .timeline-dot-v2 {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #132238; border: 2px solid #0070d2;
+      flex-shrink: 0; margin-top: 4px;
+    }
+    .timeline-dot-v2.active { background: #1b96ff; border-color: #1b96ff; box-shadow: 0 0 14px rgba(27,150,255,0.4); }
+    .timeline-connector { width: 2px; flex: 1; background: linear-gradient(to bottom, rgba(27,150,255,0.25), rgba(0,180,216,0.08)); margin-top: 0.5rem; }
+
+    /* Expertise cards */
+    .expertise-card {
+      background: rgba(19, 34, 56, 0.5);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+    }
+    .expertise-card:hover {
+      border-color: rgba(27,150,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Nav glass */
+    .nav-glass {
+      background: rgba(10, 22, 40, 0.85);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* Pill badges */
+    .pill {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      padding: 0.375rem 0.875rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem; font-weight: 500;
+      background: rgba(0,112,210,0.12);
+      color: #5ba8d4;
+      border: 1px solid rgba(27,150,255,0.2);
+    }
+
+    /* Check marks in feature cards */
+    .check-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.625rem; }
+    .check-icon { color: #00b4d8; font-size: 0.875rem; margin-top: 0.125rem; flex-shrink: 0; }
+
+    /* Section divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,112,210,0.15), transparent);
+      max-width: 200px; margin: 0 auto;
+    }
+
+    /* Button styles */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: linear-gradient(135deg, #0070d2, #1b96ff);
+      color: #FFFFFF; font-weight: 600; font-size: 0.9375rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,112,210,0.3); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      color: #E2E8F0; font-weight: 500; font-size: 0.9375rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); transform: translateY(-2px); }
+
+    /* Responsive photo */
+    @media (max-width: 1023px) {
+      .photo-ring { width: 200px; height: 200px; }
+    }
+    @media (max-width: 639px) {
+      .photo-ring { width: 160px; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient elements -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="grid-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-glass fixed top-0 w-full z-50 transition-all duration-300" id="nav">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="text-accent-400 font-bold text-xl tracking-tight">JT</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm text-gray-400 hover:text-white transition-colors">About</a>
+        <a href="#work" class="text-sm text-gray-400 hover:text-white transition-colors">Work</a>
+        <a href="#experience" class="text-sm text-gray-400 hover:text-white transition-colors">Experience</a>
+        <a href="#expertise" class="text-sm text-gray-400 hover:text-white transition-colors">Expertise</a>
+        <a href="#contact" class="btn-primary text-sm !py-2 !px-5">Get In Touch</a>
+      </div>
+      <button type="button" class="md:hidden text-gray-400 hover:text-white" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div class="hidden md:hidden px-6 pb-4" id="mobileMenu">
+      <div class="flex flex-col gap-3">
+        <a href="#about" class="text-sm text-gray-400 hover:text-white transition-colors">About</a>
+        <a href="#work" class="text-sm text-gray-400 hover:text-white transition-colors">Work</a>
+        <a href="#experience" class="text-sm text-gray-400 hover:text-white transition-colors">Experience</a>
+        <a href="#expertise" class="text-sm text-gray-400 hover:text-white transition-colors">Expertise</a>
+        <a href="#contact" class="text-sm text-accent-400 hover:text-teal-400 transition-colors">Get In Touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="relative min-h-screen flex items-center z-10 pt-20">
+    <div class="max-w-6xl mx-auto px-6 w-full">
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <!-- Text -->
+        <div class="flex-1 text-center lg:text-left">
+          <h1 class="hero-fade hero-fade-1 text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1]">
+            John Tehrani
+          </h1>
+          <p class="hero-fade hero-fade-2 mt-6 text-xl sm:text-2xl text-gray-300 font-light leading-relaxed max-w-2xl">
+            I bridge the gap between what AI can do<br class="hidden sm:block"> and what enterprises actually deploy.
+          </p>
+          <div class="hero-fade hero-fade-3 mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
+            <span class="pill">Agentforce Co-Creator</span>
+            <span class="pill">AI Platform Builder</span>
+            <span class="pill">Salesforce Principal SE</span>
+          </div>
+          <div class="hero-fade hero-fade-4 mt-10 flex flex-wrap gap-4 justify-center lg:justify-start">
+            <a href="#work" class="btn-primary">View My Work <span>&#8595;</span></a>
+            <a href="#contact" class="btn-secondary">Get In Touch <span>&#8594;</span></a>
+          </div>
+        </div>
+        <!-- Photo -->
+        <div class="hero-fade hero-fade-3 flex-shrink-0">
+          <div class="photo-ring">
+            <div class="photo-inner">
+              <img src="photo.png" alt="John Tehrani">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section id="about" class="relative z-10 py-24 sm:py-32">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="reveal">
+        <p class="text-accent-400 font-semibold text-sm tracking-widest uppercase mb-4">About</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">From mechanical engineering<br class="hidden sm:block"> to co-creating Salesforce's flagship AI product.</h2>
+      </div>
+      <div class="reveal mt-10 space-y-6 text-gray-400 text-lg leading-relaxed">
+        <p>
+          Twenty years ago I was sizing HVAC systems as a mechanical engineer. Today I co-create flagship AI products at a $200B+ enterprise software company and build production intelligence platforms on Claude.
+        </p>
+        <p>
+          The constant: I find transformative technology early, build with it before anyone asks me to, and help organizations adopt it at scale. I was the first employee outside the founding team at a clean energy startup. I co-created the genesis story, demos, and narrative vision for Agentforce &mdash; Salesforce's most important product launch in years. AI Research presented those materials to Marc Benioff and Parker Harris, securing the product investment.
+        </p>
+        <p>
+          I lead a pod of 4 Solution Engineers across 4 sales regions. I architect AI demos for Fortune 500 accounts. And in my own time, I build production-grade systems that prove the technology works &mdash; because the best way to sell AI is to have built with it yourself.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==================== FEATURED WORK ==================== -->
+  <section id="work" class="relative z-10 py-24 sm:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal">
+        <p class="text-accent-400 font-semibold text-sm tracking-widest uppercase mb-4">Featured Work</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Built things that matter.</h2>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-2 gap-8">
+        <!-- Agentforce Card -->
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-accent-500/10 flex items-center justify-center text-accent-400 text-lg">&#9889;</div>
+            <p class="text-xs font-semibold text-accent-400 tracking-widest uppercase">Salesforce &middot; 2023</p>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Co-Created Salesforce's Flagship AI Product</h3>
+          <p class="text-gray-400 leading-relaxed mb-6">
+            In 2023, I identified an opportunity to bring autonomous AI agents to the Salesforce platform. I created the genesis story, pitch narrative, and demo content. Salesforce AI Research built the technical prototype. Together, those materials were presented to CEO Marc Benioff and CTO Parker Harris &mdash; securing the green light for product investment.
+          </p>
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Agentforce is now Salesforce's most significant product bet: autonomous AI agents across Sales, Service, Marketing, and Commerce. It started with a demo from an SE who saw the future early.
+          </p>
+          <div class="space-y-2">
+            <div class="check-item"><span class="check-icon">&#10003;</span><span class="text-gray-300 text-sm">Materials presented to CEO and CTO, securing product investment</span></div>
+            <div class="check-item"><span class="check-icon">&#10003;</span><span class="text-gray-300 text-sm">Secured product investment green light</span></div>
+            <div class="check-item"><span class="check-icon">&#10003;</span><span class="text-gray-300 text-sm">Now Salesforce's flagship AI platform</span></div>
+          </div>
+        </div>
+
+        <!-- AIP Card -->
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-teal-400/10 flex items-center justify-center text-teal-400 text-lg">&#9881;</div>
+            <p class="text-xs font-semibold text-teal-400 tracking-widest uppercase">Personal Build &middot; 2026</p>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Built a Production AI Platform &mdash; As a Non-Developer</h3>
+          <p class="text-gray-400 leading-relaxed mb-6">
+            86 Apex classes. 125 TypeScript files. 39 agent actions. 16 data source connectors. 12 security audit rounds scoring 8.7/10. Built entirely using Claude Code.
+          </p>
+          <p class="text-gray-400 leading-relaxed mb-8">
+            The Account Intelligence Platform integrates Salesforce, Google Cloud, and Google Workspace into a unified system: automated account research, executive briefings, POV slide generation, and real-time Slack notifications &mdash; powered by multi-model LLM routing (Claude + Gemini) and RAG pipelines with pgvector.
+          </p>
+          <div class="space-y-2">
+            <div class="check-item"><span class="check-icon">&#10003;</span><span class="text-gray-300 text-sm">Multi-model LLM routing (Claude + Gemini)</span></div>
+            <div class="check-item"><span class="check-icon">&#10003;</span><span class="text-gray-300 text-sm">RAG pipeline with pgvector + hybrid search</span></div>
+            <div class="check-item"><span class="check-icon">&#10003;</span><span class="text-gray-300 text-sm">Full Salesforce + GCP + Google Workspace integration</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==================== BY THE NUMBERS ==================== -->
+  <section class="relative z-10 py-24 sm:py-32">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal text-center mb-16">
+        <p class="text-accent-400 font-semibold text-sm tracking-widest uppercase mb-4">By The Numbers</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">The work speaks for itself.</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="text-4xl sm:text-5xl font-extrabold text-white mb-2"><span class="counter" data-target="20">0</span><span class="text-gold-500">+</span></div>
+          <div class="text-sm text-gray-400">Years in Technology</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="text-4xl sm:text-5xl font-extrabold text-white mb-2"><span class="counter" data-target="86">0</span></div>
+          <div class="text-sm text-gray-400">Apex Classes Built</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="text-4xl sm:text-5xl font-extrabold text-white mb-2"><span class="counter" data-target="39">0</span></div>
+          <div class="text-sm text-gray-400">Agentforce Actions</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="text-4xl sm:text-5xl font-extrabold text-white mb-2"><span class="counter" data-target="16">0</span></div>
+          <div class="text-sm text-gray-400">Data Source Connectors</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="text-4xl sm:text-5xl font-extrabold text-white mb-2"><span class="counter" data-target="4">0</span></div>
+          <div class="text-sm text-gray-400">SE Teams Led</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="text-4xl sm:text-5xl font-extrabold text-white mb-2"><span class="counter" data-target="3">0</span></div>
+          <div class="text-sm text-gray-400">Consecutive Years Over Quota</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==================== CAREER TIMELINE ==================== -->
+  <section id="experience" class="relative z-10 py-24 sm:py-32">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="reveal">
+        <p class="text-accent-400 font-semibold text-sm tracking-widest uppercase mb-4">Career</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-16">The long game.</h2>
+      </div>
+
+      <div>
+        <!-- Current Role -->
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2 active"></div>
+            <div class="timeline-connector"></div>
+          </div>
+          <div class="pb-2">
+            <p class="text-accent-400 font-semibold text-sm">2022 &mdash; Present</p>
+            <h3 class="text-xl font-bold text-white mt-1">Principal, Strategic Solutions Engineer</h3>
+            <p class="text-gray-400 text-sm mt-0.5">Salesforce &middot; Boston, MA</p>
+            <p class="text-gray-400 mt-3 leading-relaxed">
+              Co-created Agentforce genesis PoC. Built the Account Intelligence Platform. POD Leader for 4 SEs across 4 sales regions. TMT-Commercial OU.
+            </p>
+          </div>
+        </div>
+
+        <!-- Lead SE -->
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2"></div>
+            <div class="timeline-connector"></div>
+          </div>
+          <div class="pb-2">
+            <p class="text-accent-300 font-semibold text-sm">2019 &mdash; 2022</p>
+            <h3 class="text-xl font-bold text-white mt-1">Lead Solution Engineer</h3>
+            <p class="text-gray-400 text-sm mt-0.5">Salesforce &middot; Boston, MA</p>
+            <p class="text-gray-400 mt-3 leading-relaxed">
+              Led end-to-end sales cycles for NorthEast Mid-Commercial region. Strategy development, requirements gathering, solution positioning.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sr SA FirstFuel -->
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2"></div>
+            <div class="timeline-connector"></div>
+          </div>
+          <div class="pb-2">
+            <p class="text-accent-300 font-semibold text-sm">2014 &mdash; 2019</p>
+            <h3 class="text-xl font-bold text-white mt-1">Senior Solutions Architect</h3>
+            <p class="text-gray-400 text-sm mt-0.5">FirstFuel Software &middot; Boston, MA</p>
+            <p class="text-gray-400 mt-3 leading-relaxed">
+              Exceeded quota by 12% for three consecutive years. Scaled technical sales across Eastern US, Canada, and APAC. Built the company's training program and managed the demo team.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sr Engineer FirstFuel -->
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2"></div>
+            <div class="timeline-connector"></div>
+          </div>
+          <div class="pb-2">
+            <p class="text-accent-300 font-semibold text-sm">2011 &mdash; 2014</p>
+            <h3 class="text-xl font-bold text-white mt-1">Senior Energy Systems Engineer</h3>
+            <p class="text-gray-400 text-sm mt-0.5">FirstFuel Software &middot; Boston, MA</p>
+            <p class="text-gray-400 mt-3 leading-relaxed">
+              First non-founding employee. Built the technical methodology from scratch in a company that went on to be acquired.
+            </p>
+          </div>
+        </div>
+
+        <!-- Johnson Controls -->
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2"></div>
+            <div class="timeline-connector"></div>
+          </div>
+          <div class="pb-2">
+            <p class="text-accent-300 font-semibold text-sm">2008 &mdash; 2011</p>
+            <h3 class="text-xl font-bold text-white mt-1">Energy Solutions Dev Engineer</h3>
+            <p class="text-gray-400 text-sm mt-0.5">Johnson Controls &middot; Boston, MA</p>
+            <p class="text-gray-400 mt-3 leading-relaxed">
+              Contributed to a $150MM region. Technical energy solutions for commercial and industrial customers.
+            </p>
+          </div>
+        </div>
+
+        <!-- H2O -->
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2"></div>
+            <div class="timeline-connector"></div>
+          </div>
+          <div class="pb-2">
+            <p class="text-accent-300 font-semibold text-sm">2006 &mdash; 2008</p>
+            <h3 class="text-xl font-bold text-white mt-1">Project Engineer</h3>
+            <p class="text-gray-400 text-sm mt-0.5">H2O Applied Technologies</p>
+            <p class="text-gray-400 mt-3 leading-relaxed">
+              Environmental systems engineering. Where it all started.
+            </p>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="timeline-item timeline-last reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot-v2"></div>
+          </div>
+          <div>
+            <p class="text-accent-300 font-semibold text-sm">2006</p>
+            <h3 class="text-xl font-bold text-white mt-1">BS Mechanical Engineering</h3>
+            <p class="text-gray-400 text-sm mt-0.5">Worcester Polytechnic Institute</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==================== EXPERTISE ==================== -->
+  <section id="expertise" class="relative z-10 py-24 sm:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal">
+        <p class="text-accent-400 font-semibold text-sm tracking-widest uppercase mb-4">Expertise</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-14">Technical depth meets strategic breadth.</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="expertise-card reveal reveal-delay-1">
+          <div class="text-2xl mb-3">&#129302;</div>
+          <h3 class="text-lg font-bold text-white mb-3">AI &amp; LLM Platforms</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Claude (Opus, Sonnet), Gemini, Agentforce, RAG with pgvector, multi-model routing, prompt engineering, anti-hallucination systems</p>
+        </div>
+
+        <div class="expertise-card reveal reveal-delay-2">
+          <div class="text-2xl mb-3">&#9729;&#65039;</div>
+          <h3 class="text-lg font-bold text-white mb-3">Salesforce Platform</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Apex, LWC, Data Cloud, Agentforce, Flows, platform architecture. 6 certifications including Admin, App Builder, Service Cloud</p>
+        </div>
+
+        <div class="expertise-card reveal reveal-delay-3">
+          <div class="text-2xl mb-3">&#9881;&#65039;</div>
+          <h3 class="text-lg font-bold text-white mb-3">Cloud Infrastructure</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Google Cloud (Cloud Run, Cloud SQL, Secret Manager), Redis, PostgreSQL, Docker, pgvector, Vertex AI</p>
+        </div>
+
+        <div class="expertise-card reveal reveal-delay-1">
+          <div class="text-2xl mb-3">&#128200;</div>
+          <h3 class="text-lg font-bold text-white mb-3">Enterprise Sales</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Complex deal strategy, executive presentations, POC/POV methodology, value engineering, Miller Heiman Strategic &amp; Conceptual Selling</p>
+        </div>
+
+        <div class="expertise-card reveal reveal-delay-2">
+          <div class="text-2xl mb-3">&#128101;</div>
+          <h3 class="text-lg font-bold text-white mb-3">Team Leadership</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">POD management, hiring, onboarding, training program development, cross-functional alignment, AE/SE partnership strategy</p>
+        </div>
+
+        <div class="expertise-card reveal reveal-delay-3">
+          <div class="text-2xl mb-3">&#127981;</div>
+          <h3 class="text-lg font-bold text-white mb-3">Industry Depth</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Technology, Media &amp; Telecom, Financial Services, Energy &amp; Utilities, Retail, Healthcare. 20 years across regulated and fast-moving verticals</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" class="relative z-10 py-24 sm:py-32">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <div class="reveal">
+        <p class="text-accent-400 font-semibold text-sm tracking-widest uppercase mb-4">Contact</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Let's talk.</h2>
+        <p class="mt-6 text-gray-400 text-lg leading-relaxed">
+          Whether it's an opportunity, a collaboration, or a conversation about enterprise AI &mdash; I'd like to hear from you.
+        </p>
+      </div>
+
+      <div class="reveal mt-12 grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+        <a href="mailto:jamtehrani@gmail.com" class="expertise-card flex items-center gap-3 !p-4 hover:!border-accent-400/30 no-underline">
+          <span class="text-xl">&#9993;</span>
+          <div class="text-left">
+            <p class="text-xs text-gray-500">Email</p>
+            <p class="text-sm text-gray-300">jamtehrani@gmail.com</p>
+          </div>
+        </a>
+        <a href="tel:617-435-5389" class="expertise-card flex items-center gap-3 !p-4 hover:!border-accent-400/30 no-underline">
+          <span class="text-xl">&#128222;</span>
+          <div class="text-left">
+            <p class="text-xs text-gray-500">Phone</p>
+            <p class="text-sm text-gray-300">617-435-5389</p>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/jtehrani" target="_blank" rel="noopener" class="expertise-card flex items-center gap-3 !p-4 hover:!border-accent-400/30 no-underline">
+          <span class="text-xl">&#128279;</span>
+          <div class="text-left">
+            <p class="text-xs text-gray-500">LinkedIn</p>
+            <p class="text-sm text-gray-300">linkedin.com/in/jtehrani</p>
+          </div>
+        </a>
+        <a href="https://github.com/jtehrani84" target="_blank" rel="noopener" class="expertise-card flex items-center gap-3 !p-4 hover:!border-accent-400/30 no-underline">
+          <span class="text-xl">&#128187;</span>
+          <div class="text-left">
+            <p class="text-xs text-gray-500">GitHub</p>
+            <p class="text-sm text-gray-300">github.com/jtehrani84</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BUILT WITH CLAUDE ==================== -->
+  <section class="relative z-10 py-16">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <div class="reveal feature-card !py-8 !px-8">
+        <p class="text-xs font-semibold text-teal-400 tracking-widest uppercase mb-3">Meta</p>
+        <p class="text-gray-300 leading-relaxed">
+          This site was designed and built using <span class="text-accent-400 font-semibold">Claude Code</span> &mdash; the same way I build production AI systems. No templates, no frameworks beyond Tailwind. Just a conversation with Claude about what I wanted, and the code it wrote to make it happen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="relative z-10 py-10 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-gray-600">&copy; 2026 John Tehrani</p>
+      <p class="text-sm text-gray-600">Built with Claude Code</p>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // Scroll-triggered reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Counter animations
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          const duration = 2000;
+          const startTime = performance.now();
+
+          function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+          function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutQuart(progress);
+            el.textContent = Math.floor(easedProgress * target);
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              el.textContent = target;
+            }
+          }
+          requestAnimationFrame(updateCounter);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // Mobile menu close on link click
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.add('hidden');
+      });
+    });
+
+    // Nav background on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('nav');
+      if (window.scrollY > 50) {
+        nav.style.borderBottomColor = 'rgba(255,255,255,0.06)';
+      } else {
+        nav.style.borderBottomColor = 'rgba(255,255,255,0.04)';
+      }
+    });
+  </script>
+</body>
+</html>
